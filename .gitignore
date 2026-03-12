@@ -1,0 +1,32 @@
+# Pharmacy Management System — Cloud Deployment Version
+# 
+# Commits the streamlit app + helpers only (no local Flask web/ folder)
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Virtual envs
+venv/
+.venv/
+env/
+.env
+
+# SQLite DB (will be created fresh on cloud)
+# NOTE: Keep pharmacy.db in repo so cloud has seed data
+# pharmacy.db
+
+# Flask-only web server (not needed for Streamlit Cloud)
+web/
+
+# IDE / OS files
+.vscode/
+.idea/
+*.DS_Store
+Thumbs.db
+
+# Logs
+*.log
