@@ -2,17 +2,20 @@
 =============================================================================
  STREAMLIT PHARMACY MANAGEMENT SYSTEM
 =============================================================================
- Deploy for FREE on Streamlit Community Cloud:
-   - st.dataframe  → inventory display
-   - st.form       → add medicines & process sales
-   - st.bar_chart  → sales analytics
+ Database: MySQL (via Streamlit Secrets) or SQLite (local fallback)
+ Deploy for FREE on Streamlit Community Cloud.
 
- Run locally: streamlit run streamlit_app.py
+ To use MySQL on cloud, add this to Streamlit Cloud → Settings → Secrets:
+   [mysql]
+   host     = "your-mysql-host"
+   port     = 3306
+   user     = "your-user"
+   password = "your-password"
+   database = "pharmacy_db"
 =============================================================================
 """
 
 import streamlit as st
-import sqlite3
 import hashlib
 import pandas as pd
 import os
@@ -27,6 +30,17 @@ st.set_page_config(
 )
 
 DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "pharmacy.db")
+
+# ─── Database Engine Detection ───────────────────────────────────────────────
+_USE_MYSQL = False
+try:
+    if "mysql" in st.secrets:
+        import mysql.connector
+        _USE_MYSQL = True
+except Exception:
+    pass
+
+import sqlite3   # always available as fallback
 
 
 # ─── Custom CSS ─────────────────────────────────────────────────────────────
